@@ -1,26 +1,25 @@
 const Neo4jConfig = require("../configs/Neo4jConfig")
 
-class GetClientsService {
-    async run() {
+class GetClientByNomeService {
+    async run(nome) {
 
         const conn = Neo4jConfig.OpenConnection();
 
         const session = conn.session();
 
         const result = await session.run(
-            'MATCH (n:Client) RETURN n LIMIT 25'
+            'MATCH (n:Client { Nome: $nome }) RETURN n LIMIT 25',
+            { nome }
         );
 
         session.close();
 
-        const clientList = result.records.map(
-            r => r.get(0).properties
-        );
+        const client = result.records[0].get(0).properties;
         console.log("Clientes retornados");
 
         conn.close();
 
-        return clientList;
+        return client;
     }
 }
-module.exports = new GetClientsService()
+module.exports = new GetClientByNomeService()
