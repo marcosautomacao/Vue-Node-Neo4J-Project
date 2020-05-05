@@ -1,9 +1,21 @@
 const neo4j = require('neo4j-driver')
+const fs = require('fs')
 class Neo4jConfig {
-    OpenConnection = () => {
+    GetDbParams() {
+        return new Promise((resolve, reject) => {
+            fs.readFile("./server/neo4jconfig.txt", 'utf8', (err, paramsDb) => {
+                if (err) reject(err);
+                resolve(paramsDb.split(";"))
+            });
+        });
+    }
+
+    async OpenConnection() {
+        const paramsDb = await this.GetDbParams()
+
         return neo4j.driver(
-            'neo4j://localhost:7687',
-            neo4j.auth.basic('neo4j', '1234'),
+            paramsDb[0],
+            neo4j.auth.basic(paramsDb[1], paramsDb[2]),
             {
                 maxTransactionRetryTime: 30000
             })

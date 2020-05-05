@@ -3,7 +3,7 @@ const Neo4jConfig = require("../configs/Neo4jConfig")
 class GetClientsService {
     async run() {
 
-        const conn = Neo4jConfig.OpenConnection();
+        const conn = await Neo4jConfig.OpenConnection()
 
         const session = conn.session();
 
