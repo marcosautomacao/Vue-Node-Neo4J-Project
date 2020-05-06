@@ -8,7 +8,7 @@
         <div id="slogan" class="text-center">
           <h1>QualiCorp Client Control</h1>
           <br />
-          <h6 class="text-secondary">Controle de clientes da QualiCorp Vue.js, GraphQL e Node</h6>
+          <h6 class="text-secondary">Controle de clientes da QualiCorp Vue.js, eo4J e Node</h6>
         </div>
       </div>
     </div>
